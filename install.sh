@@ -5,21 +5,87 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 # This script installs the GitHub Actions deployment workflow and scripts
-# into your git repository.
+# into your git repository for automatic SSH-based deployments.
 #
-# USAGE:
-#   curl -sSL https://raw.githubusercontent.com/user/viteseo-auto-deploy/main/install.sh | bash
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK START
+# ═══════════════════════════════════════════════════════════════════════════════
 #
-# Or with a specific target directory:
-#   curl -sSL https://raw.githubusercontent.com/user/viteseo-auto-deploy/main/install.sh | bash -s -- /path/to/repo
+#   cd /path/to/your/git/repo
+#   curl -sSL https://raw.githubusercontent.com/viteseodev/viteseo-auto-deploy/main/install.sh | bash
 #
-# OPTIONS:
-#   -h, --help      Show help message
-#   -f, --force     Overwrite existing files without prompting
-#   -q, --quiet     Minimal output
-#   -v, --verbose   Verbose output
-#   --no-color      Disable colored output
-#   --local         Copy files from local source instead of downloading
+# ═══════════════════════════════════════════════════════════════════════════════
+# USAGE EXAMPLES
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Install in current directory:
+#   curl -sSL https://raw.githubusercontent.com/viteseodev/viteseo-auto-deploy/main/install.sh | bash
+#
+# Install in current directory with verbose output:
+#   curl -sSL https://raw.githubusercontent.com/viteseodev/viteseo-auto-deploy/main/install.sh | bash -s -- -v
+#
+# Install in current directory, force overwrite, verbose:
+#   curl -sSL https://raw.githubusercontent.com/viteseodev/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v
+#
+# Install in a specific directory:
+#   curl -sSL https://raw.githubusercontent.com/viteseodev/viteseo-auto-deploy/main/install.sh | bash -s -- /path/to/repo
+#
+# Install with all options (force + verbose + specific directory):
+#   curl -sSL https://raw.githubusercontent.com/viteseodev/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v /path/to/repo
+#
+# Install from a local clone (offline/testing):
+#   ./install.sh --local /path/to/viteseo-auto-deploy /path/to/target-repo
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# CURL COMMAND BREAKDOWN
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#   curl -sSL <url> | bash -s -- [options] [target]
+#   │    │││         │     │  │
+#   │    │││         │     │  └─ End of bash options; everything after goes to script
+#   │    │││         │     └──── Read commands from stdin (required for piping)
+#   │    │││         └────────── Pipe output to bash
+#   │    ││└──────────────────── Follow redirects
+#   │    │└───────────────────── Show errors (with -s)
+#   │    └────────────────────── Silent mode (no progress bar)
+#   └─────────────────────────── Download URL
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# OPTIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#   -h, --help       Show help message and exit
+#   -f, --force      Overwrite existing files without prompting
+#   -q, --quiet      Minimal output (only errors)
+#   -v, --verbose    Verbose output for debugging
+#   --no-color       Disable colored output
+#   --version        Show version information
+#   --local <path>   Copy files from local source instead of downloading
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# WHAT GETS INSTALLED
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#   .github/workflows/deploy.yml          GitHub Actions workflow
+#   .github/workflows/DEPLOYMENT_SETUP.md Detailed setup documentation
+#   deploy/pull.sh                        Server-side deployment script
+#   deploy/setup-deployment.sh            SSH key generation helper
+#   deploy/QUICK_REFERENCE.md             Quick reference guide
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# REQUIREMENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#   - Target directory must be a git repository
+#   - curl or wget must be installed
+#   - Write permissions in target directory
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# MORE INFORMATION
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#   Repository: https://github.com/viteseodev/viteseo-auto-deploy
+#   Issues:     https://github.com/viteseodev/viteseo-auto-deploy/issues
 #
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -143,29 +209,44 @@ DESCRIPTION:
     If TARGET_DIRECTORY is not specified, uses the current directory.
 
 OPTIONS:
-    -h, --help      Show this help message and exit
-    -f, --force     Overwrite existing files without prompting
-    -q, --quiet     Minimal output (only errors)
-    -v, --verbose   Verbose output for debugging
-    --no-color      Disable colored output
-    --version       Show version information
-    --local <path>  Copy files from a local source directory instead of downloading
+    -h, --help       Show this help message and exit
+    -f, --force      Overwrite existing files without prompting
+    -q, --quiet      Minimal output (only errors)
+    -v, --verbose    Verbose output for debugging
+    --no-color       Disable colored output
+    --version        Show version information
+    --local <path>   Copy files from a local source directory instead of downloading
 
 EXAMPLES:
     # Install in current directory
     curl -sSL https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/install.sh | bash
 
+    # Install with verbose output
+    curl -sSL https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/install.sh | bash -s -- -v
+
+    # Force overwrite existing files with verbose output
+    curl -sSL https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/install.sh | bash -s -- -f -v
+
     # Install in specific directory
     curl -sSL https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/install.sh | bash -s -- /path/to/repo
 
-    # Force overwrite existing files
-    curl -sSL https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/install.sh | bash -s -- -f
+    # All options: force + verbose + specific directory
+    curl -sSL https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/install.sh | bash -s -- -f -v /path/to/repo
 
-    # Install from a local clone (useful for testing or offline installation)
+    # Install from a local clone (offline/testing)
     ./install.sh --local /path/to/viteseo-auto-deploy /path/to/target-repo
 
+CURL COMMAND BREAKDOWN:
+    curl -sSL <url> | bash -s -- [options] [target]
+         |||              |  |
+         |||              |  +-- End of bash options; rest goes to script
+         |||              +---- Read commands from stdin (REQUIRED for piping)
+         ||+------------------- Follow redirects
+         |+-------------------- Show errors (with -s)
+         +--------------------- Silent mode (no progress bar)
+
 WHAT GETS INSTALLED:
-    .github/workflows/deploy.yml         - GitHub Actions workflow
+    .github/workflows/deploy.yml          - GitHub Actions workflow
     .github/workflows/DEPLOYMENT_SETUP.md - Setup documentation
     deploy/pull.sh                        - Server-side pull script
     deploy/setup-deployment.sh            - SSH key generation helper
