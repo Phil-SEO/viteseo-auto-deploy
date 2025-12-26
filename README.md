@@ -1,6 +1,6 @@
 # ViteSEO Auto-Deploy
 
-Automatic SSH-based deployment for your projects using GitHub Actions. Push to a branch, and your server updates automatically.
+Automatic SSH-based deployment for ViteSEO website projects using GitHub Actions. Push to a branch, and your server updates automatically.
 
 ## Features
 
