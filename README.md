@@ -34,7 +34,99 @@ Go to your repository **Settings → Secrets and variables → Actions** and add
 | `PROD_SSH_USER` | SSH username | `deploy` |
 | `PROD_THEME_DIR` | Project path on server | `/var/www/html/myproject` |
 
-Add the same secrets with `STAGING_` prefix for your staging environment.
+Add the following **staging** secrets (explicitly listed here so you can copy/paste them without guessing):
+
+| Secret | Description | Example |
+|--------|-------------|---------|
+| `STAGING_SSH_PRIVATE_KEY` | SSH private key for staging | `-----BEGIN OPENSSH...` |
+| `STAGING_SSH_HOST` | Staging server hostname/IP | `staging.example.com` |
+| `STAGING_SSH_PORT` | SSH port | `22` |
+| `STAGING_SSH_USER` | SSH username | `deploy` |
+| `STAGING_THEME_DIR` | Project path on server | `/var/www/html/myproject-staging` |
+
+You should also set `STAGING_BRANCH` (already listed above) so the workflow knows which branch triggers staging deploys.
+
+### How to get/create the SSH keys (production + staging)
+
+You need **one private key per environment** and the matching public key must be placed on the target server. You can either use the helper script included in this repo or create the keys manually. Both approaches work; choose one and repeat for **prod** and **staging**.
+
+#### Option A: Use the helper script (recommended)
+
+The helper script generates an SSH key pair for you:
+
+```bash
+./deploy/setup-deployment.sh
+```
+
+When it finishes, it will tell you where the key files were created. Use those paths in the steps below.
+
+#### Option B: Generate keys manually
+
+Run this locally for **each environment** (use different filenames):
+
+```bash
+# Production key
+ssh-keygen -t ed25519 -C "viteseo-prod-deploy" -f ~/.ssh/viteseo_prod_deploy -N ""
+
+# Staging key
+ssh-keygen -t ed25519 -C "viteseo-staging-deploy" -f ~/.ssh/viteseo_staging_deploy -N ""
+```
+
+Notes:
+- The `-N ""` creates a key with **no passphrase**, which is required for non-interactive GitHub Actions.
+- Keep prod and staging keys **separate** so you can revoke one without affecting the other.
+
+#### Install the public key on each server
+
+1) Copy the **public key** (ends with `.pub`) for the environment:
+
+```bash
+# Example for production
+cat ~/.ssh/viteseo_prod_deploy.pub
+```
+
+2) On the target server (prod or staging), add that public key to the deploy user's `authorized_keys`:
+
+```bash
+# On the server
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+echo "<PASTE_PUBLIC_KEY_HERE>" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
+3) Test the key locally before saving secrets (replace host/user/port):
+
+```bash
+ssh -i ~/.ssh/viteseo_prod_deploy -p 22 deploy@prod.example.com
+```
+
+You should log in without a password prompt. If this fails, fix it now before moving on.
+
+#### Save the private key into GitHub Secrets
+
+For each environment, open the **private key file** (no `.pub`):
+
+```bash
+# Example for production
+cat ~/.ssh/viteseo_prod_deploy
+```
+
+Copy the **entire** output (including the BEGIN/END lines) and paste it into:
+- `PROD_SSH_PRIVATE_KEY` for production
+- `STAGING_SSH_PRIVATE_KEY` for staging
+
+#### Set the remaining secrets
+
+For each environment, set:
+- `*_SSH_HOST`: The server hostname or IP.
+- `*_SSH_PORT`: The SSH port (often `22`).
+- `*_SSH_USER`: The Linux user on that server (often `deploy`).
+- `*_THEME_DIR`: The absolute path to the repo on that server.
+
+Example values:
+- Prod: `/var/www/html/myproject`
+- Staging: `/var/www/html/myproject-staging`
 
 ### 3. Set Up Your Server
 
