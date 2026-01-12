@@ -1,6 +1,6 @@
 # Quick Reference: Auto-Deploy Setup
 
-> ⚠️ **Important:** This deployment system requires a VPS or server that supports SSH commands. Managed hosting platforms (like EasyWP) that don't provide SSH access are not compatible.
+> ⚠️ **Important:** This deployment system requires a VPS or server that supports SSH commands. Managed hosting platforms (like EasyWP) that don't provide ssh access (such as EasyWP) are not compatible.
 
 ## What Was Set Up
 
