@@ -2,6 +2,8 @@
 
 Automatic SSH-based deployment for ViteSEO website projects using GitHub Actions. Push to a branch, and your server updates automatically.
 
+> ⚠️ **Important:** This deployment system requires a VPS or server that supports SSH commands. Managed hosting platforms that don't provide SSH access are not compatible.
+
 ## Features
 
 - 🚀 **Automatic deployments** - Push to `main` or `dev` and deploy automatically

@@ -2,6 +2,8 @@
 
 This guide walks you through setting up automatic multi-environment deployment from GitHub to your servers.
 
+> ⚠️ **Important:** This deployment system requires a VPS or server that supports SSH commands. Managed hosting platforms that don't provide SSH access are not compatible.
+
 ## Overview
 
 This workflow supports **two environments** with automatic branch-based deployment:

@@ -1,5 +1,7 @@
 # Quick Reference: Auto-Deploy Setup
 
+> ⚠️ **Important:** This deployment system requires a VPS or server that supports SSH commands. Managed hosting platforms (like EasyWP) that don't provide SSH access are not compatible.
+
 ## What Was Set Up
 
 ✅ **GitHub Action** (`.github/workflows/deploy.sh`)
@@ -35,18 +37,13 @@ Theme updated! ✓
 
 1. **Clone the repo on your server:**
    ```bash
-   # For EasyWP/Namecheap:
-   cd /wptbox/wp-content/themes
-   git clone <your-repo-url> windowslive
-   
-   # For other hosting:
-   # cd /var/www/html/wp-content/themes
-   # git clone <your-repo-url> windowslive
+   cd /var/www/html/wp-content/themes
+   git clone <your-repo-url> your-theme-name
    ```
 
 2. **Make pull.sh executable:**
    ```bash
-   cd windowslive
+   cd your-theme-name
    chmod +x deploy/pull.sh
    ```
 
@@ -62,16 +59,15 @@ Theme updated! ✓
    ```bash
    ssh-keygen -t ed25519 -f ~/.ssh/git_deploy_key
    cat ~/.ssh/git_deploy_key.pub  # Add to GitHub
-   git remote set-url origin git@github.com:username/windowslive.git
+   git remote set-url origin git@github.com:username/your-theme-name.git
    ```
 
 4. **Update GitHub Action:**
-   - Edit `.github/workflows/deploy.sh`
-   - The default path is already set for EasyWP:
+   - Edit `.github/workflows/deploy.yml`
+   - Update the path to match your server's theme directory:
      ```bash
-     'bash -lc "cd /wptbox/wp-content/themes/windowslive && ./deploy/pull.sh --env prod"'
+     'bash -lc "cd /var/www/html/wp-content/themes/your-theme-name && ./deploy/pull.sh --env prod"'
      ```
-   - If using different hosting, update the path accordingly
 
 5. **Add GitHub Secrets:**
    - Go to: Repository → Settings → Secrets → Actions
@@ -86,7 +82,7 @@ Theme updated! ✓
 **Manual test on server:**
 ```bash
 ssh user@server
-cd /wptbox/wp-content/themes/windowslive
+cd /var/www/html/wp-content/themes/your-theme-name
 ./deploy/pull.sh --env prod
 ```
 
@@ -103,8 +99,8 @@ Then check: GitHub → Actions tab
 Logs are saved in: `<theme-directory>/logs/pull-TIMESTAMP.log`
 
 ```bash
-# View latest log (EasyWP)
-cd /wptbox/wp-content/themes/windowslive
+# View latest log
+cd /var/www/html/wp-content/themes/your-theme-name
 ls -lt logs/
 tail -f logs/pull-*.log
 ```
