@@ -257,10 +257,14 @@ curl -sSL <url> | bash -s -- [options] [target]
 
 ## Documentation
 
-After installation, see:
+After installation, check these guides for detailed implementation steps:
 
-- **Quick Start**: `cat deploy/QUICK_REFERENCE.md`
-- **Full Guide**: `cat .github/workflows/DEPLOYMENT_SETUP.md`
+| Guide | Description | Location |
+|-------|-------------|----------|
+| **[Quick Reference](deploy/QUICK_REFERENCE.md)** | Step-by-step setup checklist and troubleshooting | `deploy/QUICK_REFERENCE.md` |
+| **[Full Setup Guide](/.github/workflows/DEPLOYMENT_SETUP.md)** | Comprehensive deployment configuration | `.github/workflows/DEPLOYMENT_SETUP.md` |
+
+> 💡 **Tip:** Start with the Quick Reference for a fast overview of all implementation steps.
 
 ## Troubleshooting
 
