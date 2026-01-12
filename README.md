@@ -1,6 +1,6 @@
 # ViteSEO Auto-Deploy
 
-Automatic SSH-based deployment for ViteSEO website projects using GitHub Actions. Push to a branch, and your server updates automatically.
+Automatic SSH-based deployment for ViteSEO WordPress child theme projects using GitHub Actions. Push to a branch, and your server updates automatically.
 
 > ⚠️ **Important:** This deployment system requires a VPS or server that supports SSH commands. Managed hosting platforms that don't provide SSH access are not compatible.
 
