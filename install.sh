@@ -12,26 +12,26 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 #   cd /path/to/your/git/repo
-#   curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash
+#   curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash
 #
 # ═══════════════════════════════════════════════════════════════════════════════
 # USAGE EXAMPLES
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 # Install in current directory:
-#   curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash
+#   curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash
 #
 # Install in current directory with verbose output:
-#   curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- -v
+#   curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- -v
 #
 # Install in current directory, force overwrite, verbose:
-#   curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v
+#   curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v
 #
 # Install in a specific directory:
-#   curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- /path/to/repo
+#   curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- /path/to/repo
 #
 # Install with all options (force + verbose + specific directory):
-#   curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v /path/to/repo
+#   curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v /path/to/repo
 #
 # Install from a local clone (offline/testing):
 #   ./install.sh --local /path/to/viteseo-auto-deploy /path/to/target-repo
@@ -84,8 +84,8 @@
 # MORE INFORMATION
 # ═══════════════════════════════════════════════════════════════════════════════
 #
-#   Repository: https://github.com/Phil-SEO/viteseo-auto-deploy
-#   Issues:     https://github.com/Phil-SEO/viteseo-auto-deploy/issues
+#   Repository: https://github.com/ViteSEO-OPC/viteseo-auto-deploy
+#   Issues:     https://github.com/ViteSEO-OPC/viteseo-auto-deploy/issues
 #
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -98,7 +98,7 @@ set -o pipefail
 # ═══════════════════════════════════════════════════════════════════════════════
 
 # GitHub repository containing the deployment files
-REPO_OWNER="Phil-SEO"
+REPO_OWNER="ViteSEO-OPC"
 REPO_NAME="viteseo-auto-deploy"
 REPO_BRANCH="main"
 REPO_BASE_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}"

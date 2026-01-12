@@ -17,7 +17,7 @@ Automatic SSH-based deployment for ViteSEO website projects using GitHub Actions
 Navigate to your git repository and run:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash
 ```
 
 ### 2. Configure GitHub Secrets
@@ -153,30 +153,30 @@ git push origin main  # Triggers production deployment
 
 ```bash
 # Install in current directory
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash
 ```
 
 ### With Options
 
 ```bash
 # Verbose output (see what's happening)
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- -v
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- -v
 
 # Force overwrite existing files + verbose
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v
 
 # Install in a specific directory
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- /path/to/repo
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- /path/to/repo
 
 # All options combined
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v /path/to/repo
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash -s -- -f -v /path/to/repo
 ```
 
 ### Local Installation (Offline)
 
 ```bash
 # Clone this repo first
-git clone https://github.com/Phil-SEO/viteseo-auto-deploy.git
+git clone https://github.com/ViteSEO-OPC/viteseo-auto-deploy.git
 
 # Install to another repository
 ./viteseo-auto-deploy/install.sh --local ./viteseo-auto-deploy /path/to/target-repo
@@ -269,7 +269,7 @@ The install script must be run inside a git repository:
 ```bash
 cd /path/to/your/project
 git init  # if not already a git repo
-curl -sSL https://raw.githubusercontent.com/Phil-SEO/viteseo-auto-deploy/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/ViteSEO-OPC/viteseo-auto-deploy/main/install.sh | bash
 ```
 
 ### "Cannot reach GitHub"
